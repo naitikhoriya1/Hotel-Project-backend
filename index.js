@@ -4,6 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import multer from "multer";
 import bcrypt from "bcrypt";
+import { Form } from "./mongooseConnection.js";
 
 const app = express();
 
@@ -68,8 +69,21 @@ app.post(
   upload.fields([{ name: "hotelimage", maxCount: 1 }]),
   async (req, res) => {
     try {
-      console.log(req.body);
-      console.log("hotelimage = ", req.files);
+      const obj = {
+        "hotel name": "String",
+        email: "String",
+        "Mobile No ": "String",
+        rent: "String",
+        Location: "String",
+        hotelimage: "String",
+      };
+
+      const newForm = new Form(obj);
+      const formData = await newForm.save();
+
+      console.log(formData);
+      // console.log(req.body);
+      // console.log("hotelimage = ", req.files);
       res.json({ data: "Successfully Created BookingForm" });
     } catch (err) {
       res.status(500).json({ error: "Internal Server Error" });
