@@ -69,17 +69,19 @@ app.post("/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
     const userData = await User.findOne({ email });
-    if (userData) {
-      const passwordMatch = await bcrypt.compare(password, userData.password);
-      if (passwordMatch) {
-        res.redirect("http://localhost:8000/bookingdata");
-      }
-    } else {
-      res.status(404).json({ data: null, message: "User not found" });
+
+    if (!userData) {
+      return res.status(404).json({ data: null, message: "User not found" });
     }
-    return res
-      .status(200)
-      .json({ data: userData, message: "User log in successfully" });
+
+    if (password !== userData.password) {
+      return res.status(401).json({ data: null, message: "Invalid Password" });
+    }
+
+    res.status(200).json({
+      data: { id: userData._id, email: userData.email },
+      message: "User logged in successfully",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ data: null, message: err.message });
