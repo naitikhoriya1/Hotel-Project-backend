@@ -18,7 +18,13 @@ const __dirname = path.dirname(__filename);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //use for give access to use api any one
-app.use(cors());
+app.use(cors(
+  {
+  origin:["https://hotelbookingapp-nine.vercel.app/"],
+    methods: ["POST", "GET" ,"PUT","DELETE"],
+    credentials: true
+    }
+));
 
 //use multer for file upload (get image in backend)
 const storage = multer.diskStorage({
