@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.connect('mongodb+srv://ethicalkhoriya:WtwBWzOwSOjET7Mp@cluster0.gn0aywu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/backendbookingsite');
+mongoose.connect('mongodb+srv://ethicalkhoriya:WtwBWzOwSOjET7Mp@cluster0.gn0aywu.mongodb.net/formdata?retryWrites=true&w=majority&appName=Cluster0/backendbookingsite');
 
 const con = mongoose.connection;
 con.on('open', () => {
